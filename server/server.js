@@ -21,14 +21,18 @@ let events =
         images: [
           'https://images.unsplash.com/photo-1577905027788-c9fc420bbad9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
         ],
-        location: '',
+        location: 'Warszawa, ul. Szkolna 17',
         date: 'Karabiny',
         time: '',
         weapons: [
-          'AK-63',
-          'Galil AR',
-          'SG 55',
-          'VHS-K',
+          { name: 'AK-63', image: 'https://i.imgur.com/NB4h2of.jpg'},
+          { name: 'Galil AR', image: 'https://i.imgur.com/kdQ9TMs.jpg'},
+          { name: 'SG 55', image: 'https://i.imgur.com/Ek9LsVJ.jpg'},
+          { name: 'VHS-K', image: 'https://i.imgur.com/e66BIBi.jpg'},
+          
+          
+          
+          
         ]
       },
       {
@@ -40,16 +44,16 @@ let events =
         images: [
           'https://wearememphis.com/wp-content/uploads/2019/05/920x920.jpg'
         ],
-        location: '',
+        location: 'Warszawa, ul. Szkolna 17',
         date: 'Broń biała',
         time: '',
         weapons: [
-          'Topór',
-          'Nóż myśliwski',
-          'Nóż motylkowy',
-          'Siekierka',
-          'Bagnet',
-          'Scyzoryk prosto z Katowic'
+          { name: 'Topór', image: 'https://i.imgur.com/TlVaDwy.jpg'},
+          { name: 'Nóż myśliwski', image: 'https://i.imgur.com/JHHqhxg.jpg'},
+          { name: 'Nóż motylkowy', image: 'https://i.imgur.com/HATfQCH.jpg'},
+          { name: 'Bagnet', image: 'https://i.imgur.com/ZnO6DpM.jpeg'},
+          { name: 'Siekierka', image: 'https://i.imgur.com/LbCElEj.jpg'},
+          { name: 'Scyzoryk z Katowic', image: 'https://i.imgur.com/X2TdEBG.jpg'},
         ]
       },
       {
@@ -61,14 +65,18 @@ let events =
         images: [
           'https://media-cdn.tripadvisor.com/media/photo-s/14/c3/64/9c/4444.jpg'
         ],
-        location: '',
+        location: 'Warszawa, ul. Szkolna 17',
         date: 'Broń miotająca',
         time: '',
         weapons: [
-          'Łuk bloczkowy',
-          'Łuk sportowy',
-          'Łuk japoński',
-          'Kusza'
+          { name: 'Łuk bloczkowy', image: 'https://i.imgur.com/ckQCvRu.jpg'},
+          { name: 'Łuk sportowy', image: 'https://i.imgur.com/KynwBt9.jpg'},
+          { name: 'Łuk japoński', image: 'https://i.imgur.com/I2tanjr.jpg'},
+          { name: 'Kusza', image: 'https://i.imgur.com/dcYqkWE.jpg'},
+          
+          
+          
+          
         ]
       },
       {
@@ -80,14 +88,18 @@ let events =
         images: [
           'https://g8.gazetaprawna.pl/p/_wspolne/pliki/3255000/3255015-strzelnica-pistolet.jpg'
         ],
-        location: '',
+        location: 'Warszawa, ul. Szkolna 17',
         date: 'Pistolety',
         time: '',
         weapons: [
-          'GLOCK 17',
-          'Rewolwer S&W 617',
-          'H&K P30 V3',
-          'Pistolet Tanfoglio STOCK III'
+          { name: 'GLOCK 17', image: 'https://i.imgur.com/GAM4BOn.jpg'},
+          { name: 'Rewolwer S&W 617', image: 'https://i.imgur.com/odTHAMl.jpg'},
+          { name: 'H&K P30 V3', image: 'https://i.imgur.com/sE60FGR.jpg'},
+          { name: 'Pistolet Tanfoglio STOCK III', image: 'https://i.imgur.com/Puccrjs.jpg'},
+          
+          
+          
+          
         ]
       }
 ];

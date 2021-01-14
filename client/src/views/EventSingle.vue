@@ -6,15 +6,16 @@
           <h1 class="title">
             {{ event.name }}
           </h1>
-          <date-picker placeholder="Wybierz datę" format="DD-MM-YYYY" v-model="time2" type="date"></date-picker>
-          <v-select  v-model="selectedWeapons" :items="event.weapons" :options="event.weapons" multiple placeholder="Wybierz broń" width="101px">
-           <!-- <template v-slot:item="{ item }">
-              <img :srv="item.image">
-              <span>{{item.name}}</span>
+          <date-picker placeholder="Wybierz datę" valueType="format" format="DD-MM-YYYY" v-model="time2" type="date"></date-picker>
+          <v-select :items="event.weapons" :options="event.weapons" v-model="event.weapons.name" hide-selected multiple placeholder="Wybierz broń" hint="Wybierz broń do rezerwacji" persistent-hint>
+              <template slot="option" slot-scope="option">
+              <img :src="option.image">
+              {{ option.name }}
             </template>> -->
           </v-select>
           <h2 class="subtitle ">
             <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
+            <!--<button>12:00</button><button>13:00</button><button>14:00</button><button>15:00</button><button>16:00</button>-->
             
             <br>
            <!-- <strong>Godzina:</strong> {{ event.time }} -->
@@ -53,6 +54,7 @@ export default {
   name: 'EventSingle',
   data () {
     return {
+      e7: [],
       time2: null,
       event: {},
   
