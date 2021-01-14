@@ -24,7 +24,7 @@
           </v-select>
           <h2 class="subtitle ">
             <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
-            <!--<button>12:00</button><button>13:00</button><button>14:00</button><button>15:00</button><button>16:00</button>-->
+            <button v-if="time2">12:00</button><button v-if="time2">13:00</button><button v-if="time2">14:00</button><button v-if="time2">15:00</button><button v-if="time2">16:00</button>
             
             <br>
            <!-- <strong>Godzina:</strong> {{ event.time }} -->
