@@ -21,7 +21,7 @@ let events =
         images: [
           'https://images.unsplash.com/photo-1577905027788-c9fc420bbad9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
         ],
-        location: 'Warszawa, ul. Szkolna 17',
+        location: 'Warszawa, ul. Szkolna 17, TOR 1',
         date: 'Karabiny',
         time: '',
         weapons: [
@@ -44,7 +44,7 @@ let events =
         images: [
           'https://wearememphis.com/wp-content/uploads/2019/05/920x920.jpg'
         ],
-        location: 'Warszawa, ul. Szkolna 17',
+        location: 'Warszawa, ul. Szkolna 17, TOR 2',
         date: 'Broń biała',
         time: '',
         weapons: [
@@ -65,7 +65,7 @@ let events =
         images: [
           'https://media-cdn.tripadvisor.com/media/photo-s/14/c3/64/9c/4444.jpg'
         ],
-        location: 'Warszawa, ul. Szkolna 17',
+        location: 'Warszawa, ul. Szkolna 17, TOR 3',
         date: 'Broń miotająca',
         time: '',
         weapons: [
@@ -88,7 +88,7 @@ let events =
         images: [
           'https://g8.gazetaprawna.pl/p/_wspolne/pliki/3255000/3255015-strzelnica-pistolet.jpg'
         ],
-        location: 'Warszawa, ul. Szkolna 17',
+        location: 'Warszawa, ul. Szkolna 17, TOR 4',
         date: 'Pistolety',
         time: '',
         weapons: [

@@ -6,8 +6,11 @@
         <h1 class="title">
           Strzelnica          
         </h1>
-        <h2 class="subtitle">
+        <h2 v-if="$auth.isAuthenticated === false" class="subtitle">
           Zarejestruj się by zarezerwować tor
+        </h2>
+        <h2 v-if="$auth.isAuthenticated" class="subtitle">
+          Wybierz tor, który chcesz zarezerwować
         </h2>
         <div class="button-block">
   <button v-if="!$auth.isAuthenticated" @click="login" class="button is-xl is-dark">Zarejestruj się</button>

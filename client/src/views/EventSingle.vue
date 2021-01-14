@@ -7,11 +7,20 @@
             {{ event.name }}
           </h1>
           <date-picker placeholder="Wybierz datę" valueType="format" format="DD-MM-YYYY" v-model="time2" type="date"></date-picker>
+          <!--<div>
+              <label class="typo__label">Wybierz broń:</label>
+              <multiselect v-model="value" placeholder="Wybierz broń" label="name" track-by="name" :options="event.weapons" :option-height="104" :custom-label="customLabel" :show-labels="false">
+                <template slot="singleLabel" slot-scope="props"><img class="option__image" :src="props.option.image"><span class="option__desc"><span class="option__name">{{ props.option.name }}</span></span></template>
+                <template slot="option" slot-scope="props"><img class="option__image" :src="props.option.image">
+                  <div class="option__desc"><span class="option__name">{{ props.option.name }}</span><span class="option__small">{{ props.option.desc }}</span></div>
+                </template>
+              </multiselect>
+          </div> -->
           <v-select :items="event.weapons" :options="event.weapons" v-model="event.weapons.name" hide-selected multiple placeholder="Wybierz broń" hint="Wybierz broń do rezerwacji" persistent-hint>
               <template slot="option" slot-scope="option">
               <img :src="option.image">
               {{ option.name }}
-            </template>> -->
+            </template>>
           </v-select>
           <h2 class="subtitle ">
             <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
@@ -39,6 +48,7 @@
 </template>
 
 <script>
+//import Multiselect from 'vue-multiselect';
 import EventService from '@/services/EventService.js';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -49,12 +59,13 @@ import "vue-select/src/scss/vue-select.scss";
 export default {
   components: {
     DatePicker,
-    vSelect
+    vSelect,
+    //Multiselect,
   },
   name: 'EventSingle',
   data () {
     return {
-      e7: [],
+      value: [],
       time2: null,
       event: {},
   
@@ -72,7 +83,7 @@ export default {
           this.$set(this, "event", event);
         }).bind(this)
       );
-    }
+    },
   }
 }
 </script>
