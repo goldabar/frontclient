@@ -21,7 +21,7 @@
       <!-- Check that the SDK client is not currently loading before accessing is methods -->
       <div >
         <!-- show login when not authenticated -->
-        <a  class="button is-dark"><strong>Zaloguj</strong></a>
+        <router-link to="/Login" class="navbar-item"><a  class="button is-dark"><strong>Zaloguj</strong></a></router-link>
         <!-- show logout when authenticated -->
         <a class="button is-dark"><strong>Wyloguj</strong></a>
       </div>
