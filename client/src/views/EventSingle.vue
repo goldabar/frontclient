@@ -49,7 +49,6 @@
 
 <script>
 //import Multiselect from 'vue-multiselect';
-import EventService from '@/services/EventService.js';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 //import Vue from 'vue';
@@ -72,18 +71,8 @@ export default {
     }    
   },
   created() {
-    this.getEventData(); // NEW - call getEventData() when the instance is created
   },
   methods: {
-    async getEventData() {
-      // Use the eventService to call the getEventSingle() method
-      EventService.getEventSingle(this.$route.params.id)
-      .then(
-        (event => {
-          this.$set(this, "event", event);
-        }).bind(this)
-      );
-    },
   }
 }
 </script>

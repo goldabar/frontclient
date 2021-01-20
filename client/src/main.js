@@ -1,28 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import 'bulma/css/bulma.css';
+import router from "@/router/router";
+import VueRouter from "vue-router";
+import axios from "axios";
 
-//Auth0 configuration
-import { domain, clientId } from "../auth_config.json";
-
-//plugin
-import { Auth0Plugin } from "./auth";
-
-//authentication plugin
-Vue.use(Auth0Plugin, {
-  domain,
-  clientId,
-  onRedirectCallback: appState => {
-    router.push(
-      appState && appState.targetUrl
-        ? appState.targetUrl
-        : window.location.pathname
-    );
-  }
-});
 
 Vue.config.productionTip = false
+axios.defaults.baseURL = 'https://localhost:5000/api';
+Vue.use(VueRouter)
 
 new Vue({
   router,
