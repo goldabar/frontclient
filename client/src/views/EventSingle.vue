@@ -7,6 +7,26 @@
             {{ event.name }}
           </h1>
           <date-picker placeholder="Wybierz datę" valueType="format" format="DD-MM-YYYY" v-model="time2" type="date"></date-picker>
+          <div v-if="time2 !== null">
+          
+          <h2 class="subtitle">
+          <br>
+          <strong>Wybierz godzinę:</strong>
+          <div v-if="time2" class="buttons has-addons">  
+            <button :click="selectedHours" class="button">10:00</button>
+            <button class="button" selected>11:00</button>
+            <button class="button">12:00</button>
+            <button class="button" disabled>13:00</button>
+            <button class="button">14:00</button>
+            <button class="button">15:00</button>
+            <button class="button">16:00</button>
+            <button class="button" disabled>17:00</button>
+            <button class="button">18:00</button>
+          </div>
+          {{clickedButton}}
+          </h2>
+          <h2></h2>
+          </div>
           <!--<div>
               <label class="typo__label">Wybierz broń:</label>
               <multiselect v-model="value" placeholder="Wybierz broń" label="name" track-by="name" :options="event.weapons" :option-height="104" :custom-label="customLabel" :show-labels="false">
@@ -16,17 +36,26 @@
                 </template>
               </multiselect>
           </div> -->
-          <v-select :items="event.weapons" :options="event.weapons" v-model="event.weapons.name" hide-selected multiple placeholder="Wybierz broń" hint="Wybierz broń do rezerwacji" persistent-hint>
-              <template slot="option" slot-scope="option">
+          <v-select :items="event.weapons" label="name" :selected="event.weapons.name" :options="event.weapons" multiple v-model="selectedWeapons" placeholder="Wybierz broń">
+            <template slot="option" slot-scope="option">
               <img :src="option.image">
               {{ option.name }}
             </template>>
           </v-select>
+        
           <h2 class="subtitle ">
-            <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
-            <button v-if="time2">12:00</button><button v-if="time2">13:00</button><button v-if="time2">14:00</button><button v-if="time2">15:00</button><button v-if="time2">16:00</button>
             
+          <br>
+          <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
+  
+          <div v-if="selectedWeapons.length">
             <br>
+          <strong>Wybrane bronie:</strong> 
+          <!-- <div v-for="event in events" :event="event" :key="event.id" class="column is-one-quarter"> -->
+          <div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
+            {{selectedWeapon.name}}
+          </div>
+          </div>  
            <!-- <strong>Godzina:</strong> {{ event.time }} -->
           </h2>
         </div>
@@ -65,7 +94,9 @@ export default {
   name: 'EventSingle',
   data () {
     return {
-      value: [],
+      clickedButton: false,
+      selectedHours: [],
+      selectedWeapons: [],
       time2: null,
       event: {},
   
