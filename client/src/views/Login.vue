@@ -1,16 +1,25 @@
 <template>
   <div>
-    <form class="login" @submit.prevent="login">
+    <form class="login" @submit.prevent="onSubmit">
       <h1>Zaloguj</h1>
       <label>Email</label>
-      <input
-        required
-        v-model="email"
-        type="email"
-        placeholder="email@example.com"
-      />
+      <label>
+        <input
+          required
+          v-model="email"
+          type="email"
+          placeholder="email@example.com"
+        />
+      </label>
       <label>Hasło</label>
-      <input required v-model="password" type="password" placeholder="Hasło" />
+      <label>
+        <input
+          required
+          v-model="password"
+          type="password"
+          placeholder="Hasło"
+        />
+      </label>
       <hr />
       <button type="submit">Zaloguj</button>
     </form>
@@ -18,23 +27,50 @@
 </template>
 
 <script>
-import { AUTH_REQUEST } from "../store/actions/auth";
+import axios from "axios";
+import router from "@/router/router";
+// import router from "@/router/router";
+
 export default {
   name: "login",
   data() {
     return {
-      username: "dogo",
-      password: "dogy"
+      email: "",
+      password: "",
     };
   },
   methods: {
-    login: function() {
-      const { email, password } = this;
-      this.$store.dispatch(AUTH_REQUEST, { email, password }).then(() => {
-        this.$router.push("/");
+    onSubmit() {
+      console.log("login");
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      // this.$store.dispatch('login', formData);
+      // TODO - test
+      const data = JSON.stringify({
+        email: formData.email,
+        password: formData.password,
       });
-    }
-  }
+      axios
+        .post("/account/login", data, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((res) => {
+          console.log("login");
+          console.log(res.data);
+          this.$store.commit("authUser");
+          this.$store.commit("storeUser", res.data);
+          router.push("/my-profile");
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.isDataNotValid = true;
+        });
+    },
+  },
 };
 </script>
 <style>

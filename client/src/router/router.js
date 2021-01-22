@@ -3,7 +3,8 @@ import Home from "../views/Home";
 import About from "../views/About";
 import EventSingle from "../views/EventSingle";
 import Login from "@/views/Login";
-// import store from "@/store";
+import Profile from "@/views/Profile";
+import store from "@/store";
 
 const routes = [
     {path: '/', component: Home},
@@ -13,15 +14,15 @@ const routes = [
     // {path: '/map', component: Map},
     // {path: '/statistics', component: Statistics},
     // {path: '/about-us', component: AboutUs},
-    // {
-    //     path: '/my-profile', component: MyProfile, beforeEnter(to, from, next) {
-    //         if (store.state.isAuthenticated) {
-    //             next();
-    //         } else {
-    //             next('/sign-in');
-    //         }
-    //     }
-    // },
+    {
+        path: '/my-profile', component: Profile, beforeEnter(to, from, next) {
+            if (store.state.isAuthenticated) {
+                next();
+            } else {
+                next('/login');
+            }
+        }
+    },
     // {path: "*", component: PageNotFound},
 ]
 
