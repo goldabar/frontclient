@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -22,6 +23,24 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        signup(context, authData){
+          const data = JSON.stringify({
+            firstName: authData.firstName,
+            lastName: authData.lastName,
+            email: authData.email,
+            password: authData.password,
+          });
+          axios.post('/account/register', data,{
+              headers: {
+                  'Content-Type' : 'application/json'
+              }
+          }) 
+          .then(res =>{
+            console.log('signup');
+            console.log(res);
+          }) 
+          .catch(err => console.log(err));
+        },
         logout(context) {
             context.commit('unAuthUser');
         }

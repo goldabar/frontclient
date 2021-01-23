@@ -1,0 +1,82 @@
+// COLORS
+$color-primary: #121212;
+$color-black: #000;
+$color-gray-1: #5F5F5F;
+$color-white: #fff;
+$color-red: #FF3333;
+$color-red-2: #f6cdcd;
+$color-dark-blue: #004A6A;
+$color-blue: #00b2ff;
+$color-snow-white: #fbf9f9;
+$color-green: #5DE273;
+$color-green-2: #2c7537;
+$color-ash: #34363F;
+$color-night-blue: #1641F7;
+$color-night-blue-2: #0e2ca0;
+$color-vape: #EFEFF1;
+
+// DIMENSIONS
+$main-size: 8px;
+
+// FONTS
+$font-primary: 'Roboto', sans-serif;
+
+// TRANSITIONS
+$default-delay: .25s;
+
+// PADDINGS
+$default-padding: 20px;
+
+// MARGINS
+$default-content-margin: 40px;
+
+%dombasic {
+  content: " ";
+  position: absolute;
+  display: block;
+}
+
+%flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%centerX {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+%centerY {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+%centerXY {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+%positionDefault {
+  top: 0;
+  left: 0;
+}
+
+%positionAll {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+// MIXINS
+@mixin square($square) {
+  width: $square;
+  height: $square;
+}
+
+@mixin max-square($square) {
+  max-width: $square;
+  max-height: $square;
+}

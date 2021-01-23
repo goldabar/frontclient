@@ -7,8 +7,7 @@
           <h2 class="subtitle">Zarejestruj się by zarezerwować tor</h2>
           <h2 class="subtitle">Wybierz tor, który chcesz zarezerwować</h2>
           <div class="button-block">
-            <button class="button is-xl is-dark">Zarejestruj się</button>
-            <h3 class="is-size-3 has-background-dark welcome">Witaj!</h3>
+            <router-link to="/singup" class="navbar-item"><a  class="button is-dark"><strong>Zarejestruj</strong></a></router-link>
           </div>
         </div>
       </div>
