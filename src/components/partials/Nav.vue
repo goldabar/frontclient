@@ -22,8 +22,9 @@
       <div >
         <!-- show login when not authenticated -->
         <router-link to="/Login" class="navbar-item"><a  class="button is-dark"><strong>Zaloguj</strong></a></router-link>
+        <router-link to="/signup" class="navbar-item"><a  class="button is-dark"><strong>Zarejestruj</strong></a></router-link>
         <!-- show logout when authenticated -->
-        <a class="button is-dark"><strong>Wyloguj</strong></a>
+        <router-link to="/Home" class="navbar-item"><a  class="button is-dark"><strong>Wyloguj</strong></a></router-link>
       </div>
     </div>
   </div>

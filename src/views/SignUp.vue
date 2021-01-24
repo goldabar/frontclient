@@ -1,6 +1,5 @@
 <template>
   <div class="su">
-      TEST
     <div class="hero">
       <h1 class="hero__header">Rejestracja</h1>
     </div>
@@ -60,7 +59,7 @@
               id="password"
               v-model="password"
           />
-          
+
           <button class="su__button" type="submit">Zarejestruj się</button>
         </form>
       </div>
@@ -119,6 +118,14 @@ export default {
 }
 </script>
 
+<style>
+.su {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 10px;
+}
+</style>
 
 <style lang="scss">
 .input {
