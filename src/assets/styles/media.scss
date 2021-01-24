@@ -1,0 +1,71 @@
+@mixin media($value) {
+  @media(max-width: $value) {
+    @content ;
+  }
+  @if $value == fullHD-up {
+    @media (min-width: 1921px) {
+      @content ;
+    }
+  } @else if $value == fullHD {
+    @media (max-width: 1920px) {
+      @content ;
+    }
+  }
+  @if $value == container-up {
+    @media (min-width: 1651px) {
+      @content ;
+    }
+  } @else if $value == container {
+    @media (max-width: 1650px) {
+      @content ;
+    }
+  } @else if $value == desktop-l-up {
+    @media (min-width: 1441px) {
+      @content ;
+    }
+  } @else if $value == desktop-l {
+    @media (max-width: 1440px) {
+      @content ;
+    }
+  } @else if $value == desktop-m-up {
+    @media (min-width: 1200px) {
+      @content ;
+    }
+  } @else if $value == desktop-m {
+    @media (max-width: 1199px) {
+      @content ;
+    }
+  } @else if $value == tablet-up {
+    @media (min-width: 1025px) {
+      @content ;
+    }
+  } @else if $value == tablet {
+    @media (max-width: 1024px) {
+      @content ;
+    }
+  } @else if $value == mobile-up {
+    @media (min-width: 768px) {
+      @content ;
+    }
+  } @else if $value == mobile {
+    @media (max-width: 767px) {
+      @content ;
+    }
+  } @else if $value == mobileS-up {
+    @media (min-width: 577px) {
+      @content ;
+    }
+  } @else if $value == mobileS {
+    @media (max-width: 576px) {
+      @content ;
+    }
+  } @else if $value == mobileXS-up {
+    @media (min-width: 468px) {
+      @content ;
+    }
+  } @else if $value == mobileXS {
+    @media (max-width: 467px) {
+      @content ;
+    }
+  }
+}
