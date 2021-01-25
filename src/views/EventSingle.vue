@@ -23,7 +23,6 @@
             <button class="button" disabled>17:00</button>
             <button class="button">18:00</button>
           </div>
-          {{clickedButton}}
           </h2>
           <h2></h2>
           </div>
@@ -36,12 +35,12 @@
                 </template>
               </multiselect>
           </div> -->
-          <v-select :items="event.weapons" label="name" :selected="event.weapons.name" :options="event.weapons" multiple v-model="selectedWeapons" placeholder="Wybierz broń">
+          <!--<v-select :items="event.weapons" label="name" :selected="event.weapons.name" :options="event.weapons" multiple v-model="selectedWeapons" placeholder="Wybierz broń">
             <template slot="option" slot-scope="option">
               <img :src="option.image">
               {{ option.name }}
             </template>>
-          </v-select>
+          </v-select> -->
         
           <h2 class="subtitle ">
             
@@ -63,31 +62,33 @@
     </section>
     <section class="event-content">
       <div class="container">
-        <p class="is-size-4 description">{{ event.description }}</p>
-        <p class="is-size-5"><strong>Lokacja:</strong> {{ event.location }}</p>
-        <p class="is-size-5"><strong>Kategoria:</strong> {{ event.category }}</p>
-        <div class="event-images columns is-multiline has-text-centered">
-          <div v-for="image in event.images" :key="image.id" class="column is-one-third">
-            <img :src="image" :alt="event.name">
-          </div>
-        </div>
+        <!-- <p class="is-size-4 description">{{ event.description }}</p> -->
+        <!--<p class="is-size-5"><strong>Lokacja:</strong> {{ event.location }}</p>-->
+        <p class="is-size-5"><strong>Kategoria:</strong> {{ event.description }}</p>
+                          
+            <div class="column is-one-third">
+              <img :src="event.featuredImage">
+            </div>
+         
+        
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import EventService from '@/services/EventService.js';
 //import Multiselect from 'vue-multiselect';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 //import Vue from 'vue';
-import vSelect from 'vue-select';
+//import vSelect from 'vue-select';
 import "vue-select/src/scss/vue-select.scss";
 //Vue.component('v-select', VueSelect.VueSelect);
-export default {
+export default { 
   components: {
     DatePicker,
-    vSelect,
+    //vSelect,
     //Multiselect,
   },
   name: 'EventSingle',
@@ -102,9 +103,21 @@ export default {
     }    
   },
   created() {
+    this.getEventData();
   },
   methods: {
+    async getEventData() {
+      // Use the eventService to call the getEventSingle() method
+      EventService.getEventSingle(this.$route.params.id)
+      .then(
+        (event => {
+          this.$set(this, "event", event);
+        }).bind(this)
+      );
+    }
   }
 }
 </script>
+
+
 
