@@ -4,9 +4,11 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">Strzelnica</h1>
-          <h2 class="subtitle">Zarejestruj się by zarezerwować tor</h2>
-          <h2 class="subtitle">Wybierz tor, który chcesz zarezerwować</h2>
+          <h2 class="subtitle" v-if="!isAuthenticated">Zarejestruj się by zarezerwować tor</h2>
+          <h2 class="subtitle" v-if="isAuthenticated">Wybierz tor, który chcesz zarezerwować</h2>
           <div class="button-block">
+           <router-link to="/signup"><button class="button is-xl is-dark" v-if="!isAuthenticated">Zarejestruj się</button></router-link>
+            <h3 class="is-size-3 has-background-dark welcome" v-if="isAuthenticated">Witaj, {{userData.firstName}}!</h3>
           </div>
         </div>
       </div>
@@ -18,6 +20,17 @@
 import EventsList from "../components/EventsList";
 
 export default {
+  computed: {
+    isAuthenticated(){
+      return this.$store.getters.isAuthenticated
+    },
+    userData(){
+      return this.$store.getters.userData
+    },
+    userDataName(){
+      return this.$store.getters.userDataName
+    }
+  },
   name: "home",
   components: {
     EventsList,

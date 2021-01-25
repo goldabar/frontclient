@@ -1,29 +1,45 @@
 <template>
-  <div>
-    <form class="login" @submit.prevent="onSubmit">
-      <h1>Zaloguj</h1>
-      <label>Email</label>
-      <label>
-        <input
-          required
-          v-model="email"
-          type="email"
-          placeholder="email@example.com"
-        />
-      </label>
-      <label>Hasło</label>
-      <label>
-        <input
-          required
-          v-model="password"
-          type="password"
-          placeholder="Hasło"
-        />
-      </label>
-      <hr />
+  <section class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-4">
+        <div class="login-panel bg-white text-left">
+          <h1 class="display-3 font-weight-bold">Logowanie</h1>
+
+          <form class="login" @submit.prevent="onSubmit">
+            <div class="form-group">
+              <label for="email" class="input-label">Email</label>     
+              <input
+                required
+                v-model="email"
+                type="email"
+                class="form-control"
+                placeholder="email@example.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password" class="input-label">Hasło</label>
+              <input
+                required
+                v-model="password"
+                type="password"
+                class="form-control"
+                placeholder="Hasło"
+              />
+            </div>
+            <br>
+            <div class="form-group d-flex justify-content-center">
+              <button class="btn btn-primary w-25" type="submit">Zaloguj</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+      
+     <!-- <hr />
       <button type="submit">Zaloguj</button>
     </form>
-  </div>
+  </div>-->
 </template>
 
 <script>
@@ -63,7 +79,7 @@ export default {
           console.log(res.data);
           this.$store.commit("authUser");
           this.$store.commit("storeUser", res.data);
-          router.push("/my-profile");
+          router.push("/");
         })
         .catch((err) => {
           console.log(err);
@@ -73,11 +89,8 @@ export default {
   },
 };
 </script>
-<style>
-.login {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  padding: 10px;
+<style lang="scss">
+  .login-panel{
+    padding: 200px 0;
 }
 </style>

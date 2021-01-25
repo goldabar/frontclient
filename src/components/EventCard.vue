@@ -3,8 +3,8 @@
     <div class="card" :style="style"> 
       <div class="card-content">
         <h2 class="is-size-4 has-text-weight-bold">{{ event.name }}</h2>
-        <small class="event-date">{{ event.date }}</small>
-        <span>{{ event.location }}</span>
+        <!--<small class="event-date">{{ event.description }}</small>-->
+        <span>{{ event.description }}</span>
       </div>
     </div>
   </div>

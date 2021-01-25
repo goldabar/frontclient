@@ -107,7 +107,7 @@ export default {
           .then(res => {
             console.log('signup');
             console.log(res);
-            router.push('/sign-in');
+            router.push('/Login');
           })
           .catch(err => {
             console.log(err);

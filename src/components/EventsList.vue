@@ -14,6 +14,7 @@
 </template>
 <script>
 import EventCard from '@/components/EventCard';
+import EventService from '@/services/EventService.js'
 export default {
   name: 'EventsList',
   components : {
@@ -26,11 +27,18 @@ export default {
     };    
   },
   created() {
+    this.getEventsData();
   },
   // NEW
   methods: {
-
-
+        async getEventsData() {
+      EventService.getEvents()
+      .then(
+        (events => {
+          this.$set(this, "events", events);
+        }).bind(this)
+      );
+    }
   }
 };
 </script>
