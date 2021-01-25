@@ -35,28 +35,32 @@
                 </template>
               </multiselect>
           </div> -->
-          <!--<v-select :items="event.weapons" label="name" :selected="event.weapons.name" :options="event.weapons" multiple v-model="selectedWeapons" placeholder="Wybierz broń">
+          <v-select :items="filteredWeapons" label="name" :selected="filteredWeapons.name" :options="filteredWeapons" multiple v-model="selectedWeapons" placeholder="Wybierz broń">
             <template slot="option" slot-scope="option">
-              <img :src="option.image">
+              <img :src="option.pictureUrl">
               {{ option.name }}
             </template>>
-          </v-select> -->
+          </v-select>
         
           <h2 class="subtitle ">
             
           <br>
           <strong v-if="time2 !== null">Data rezerwacji:</strong> {{time2}}
-  
           <div v-if="selectedWeapons.length">
             <br>
           <strong>Wybrane bronie:</strong> 
-          <!-- <div v-for="event in events" :event="event" :key="event.id" class="column is-one-quarter"> -->
-          <div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
+           <div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
             {{selectedWeapon.name}}
           </div>
-          </div>  
+          <!-- <div v-for="event in events" :event="event" :key="event.id" class="column is-one-quarter"> -->
+          <!--<div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
+            {{selectedWeapon.name}}
+          </div>-->
+          </div> 
+          
            <!-- <strong>Godzina:</strong> {{ event.time }} -->
           </h2>
+
         </div>
       </div>
     </section>
@@ -82,15 +86,22 @@ import EventService from '@/services/EventService.js';
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 //import Vue from 'vue';
-//import vSelect from 'vue-select';
+import vSelect from 'vue-select';
 import "vue-select/src/scss/vue-select.scss";
 //Vue.component('v-select', VueSelect.VueSelect);
 export default { 
+  computed: {
+    filteredWeapons: function(){
+      return this.weapons.filter(weapon => weapon.weaponType === this.event.category)
+    }
+    
+  },
   components: {
     DatePicker,
-    //vSelect,
+    vSelect,
     //Multiselect,
   },
+  
   name: 'EventSingle',
   data () {
     return {
@@ -99,11 +110,13 @@ export default {
       selectedWeapons: [],
       time2: null,
       event: {},
+      weapons: [],
   
     }    
   },
   created() {
     this.getEventData();
+    this.getWeaponsData();
   },
   methods: {
     async getEventData() {
@@ -114,9 +127,18 @@ export default {
           this.$set(this, "event", event);
         }).bind(this)
       );
+    },
+    async getWeaponsData(){
+      EventService.getWeapons()
+      .then(
+        (weapons => {
+          this.$set(this, "weapons", weapons)
+        }).bind(this)
+      )
     }
   }
 }
+
 </script>
 
 

@@ -8,5 +8,9 @@ export default {
   async getEventSingle(eventId) {
     let res = await axios.get("http://localhost:5000/api/track/get/" + eventId);
     return res.data;
-  }
+  },
+  async getWeapons() {
+    let res = await axios.post("http://localhost:5000/api/Weapon/list/", {Body: {}});
+    return res.data;
+  },
 }
