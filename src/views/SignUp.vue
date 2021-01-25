@@ -1,70 +1,64 @@
 <template>
-  <div class="su">
-    <div class="hero">
-      <h1 class="hero__header">Rejestracja</h1>
-    </div>
-    <div class="su__content">
-      <div class="su__error-box" v-if="isDataNotValid">
-        <div class="su__error-message">
-          Błędne dane rejestracji
-        </div>
-      </div>
-      <div class="su__box">
-        <form class="su__form"  @submit.prevent="onSubmit">
-          <label
-              for="first-name"
-              class="input__label"
-          >
-            Imię
-          </label>
-          <input
-              class="input__input"
-              type="text"
-              id="first-name"
-              v-model="firstName"
-          />
-          <label
-              for="last-name"
-              class="input__label"
-          >
-            Nazwisko
-          </label>
-          <input
-              class="input__input"
-              type="text"
-              id="last-name"
-              v-model="lastName"
-          />
-          <label
-              for="email"
-              class="input__label"
-          >
-            Email
-          </label>
-          <input
-              class="input__input"
-              type="text"
-              id="email"
-              v-model="email"
-          />
-          <label
-              for="password"
-              class="input__label"
-          >
-            Hasło
-          </label>
-          <input
-              class="input__input"
-              type="password"
-              id="password"
-              v-model="password"
-          />
+  <section class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <div class="login-panel bg-white text-left">
+             <h1 class="display-3 font-weight-bold">Rejestracja</h1>
 
-          <button class="su__button" type="submit">Zarejestruj się</button>
-        </form>
-      </div>
-    </div>
-  </div>
+            <form class="signup"  @submit.prevent="onSubmit">
+              <div class="form-group">
+                <label for="first-name" class="input-label">Imię</label>
+                <input
+                  required
+                  class="form-control"
+                  type="firstname"
+                  id="first-name"
+                  v-model="firstName"
+                  placeholder="Wpisz imię"
+                />
+              </div>
+                <div class="form-group">
+                <label for="last-name" class="input-label">Nazwisko</label>
+                <input
+                  required
+                  class="form-control"
+                  type="lastnamee"
+                  id="last-name"
+                  v-model="lastName"
+                  placeholder="Wpisz nazwisko"
+                />
+                </div>
+                <div class="form-group">
+                <label for="email" class="input-label">Adres e-mail</label>
+                <input
+                  required
+                  class="form-control"
+                  type="email"
+                  id="email"
+                  v-model="email"
+                  placeholder="Wpisz adres e-mail"
+                />
+                </div>
+                <div class="form-group">
+                <label for="password" class="input-label">Hasło</label>
+                <input
+                  required
+                  class="form-control"
+                  type="password"
+                  id="password"
+                  v-model="password"
+                  placeholder="Wpisz hasło"
+                />
+                </div>
+                <br>
+                <div class="form-group d-flex justify-content-center">
+                  <button class="btn btn-primary w-25" type="submit">Zarejestruj</button>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>       
+  </section>
 </template>
 
 <script>
@@ -79,7 +73,6 @@ export default {
       email: '',
       password: '',
       role: '',
-      isDataNotValid: false
     }
   },
   methods: {
@@ -111,7 +104,6 @@ export default {
           })
           .catch(err => {
             console.log(err);
-            this.isDataNotValid = true;
           });
     }
   }
