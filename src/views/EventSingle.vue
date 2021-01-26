@@ -6,23 +6,24 @@
           <h1 class="title">
             {{ event.name }}
           </h1>
-          <date-picker placeholder="Wybierz datę" valueType="format" format="DD-MM-YYYY" v-model="time2" type="date"></date-picker>
+          <date-picker placeholder="Wybierz datę" valueType="format" format="YYYY-MM-DD" v-model="time2" @change="changeHandler" type="date"></date-picker>
+
           <div v-if="time2 !== null">
-          
           <h2 class="subtitle">
           <br>
           <strong>Wybierz godzinę:</strong>
-          <div v-if="time2" class="buttons has-addons">  
-            <button :click="selectedHours" class="button">10:00</button>
-            <button class="button" selected>11:00</button>
-            <button class="button">12:00</button>
-            <button class="button" disabled>13:00</button>
-            <button class="button">14:00</button>
-            <button class="button">15:00</button>
-            <button class="button">16:00</button>
-            <button class="button" disabled>17:00</button>
-            <button class="button">18:00</button>
-          </div>
+          <br>
+          <div>
+            <!--<b-form-checkbox-group
+              v-model="selected"
+              :options="options"
+              class="mb-3"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-checkbox-group>
+          <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>-->
+  </div>
           </h2>
           <h2></h2>
           </div>
@@ -52,6 +53,7 @@
            <div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
             {{selectedWeapon.name}}
           </div>
+
           <!-- <div v-for="event in events" :event="event" :key="event.id" class="column is-one-quarter"> -->
           <!--<div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
             {{selectedWeapon.name}}
@@ -60,7 +62,9 @@
           
            <!-- <strong>Godzina:</strong> {{ event.time }} -->
           </h2>
-
+          <div v-for="slot in slots" :key="slot.startDateTime">
+          {{slot}}
+          </div>
         </div>
       </div>
     </section>
@@ -88,6 +92,7 @@ import 'vue2-datepicker/index.css';
 //import Vue from 'vue';
 import vSelect from 'vue-select';
 import "vue-select/src/scss/vue-select.scss";
+import axios from "axios"
 //Vue.component('v-select', VueSelect.VueSelect);
 export default { 
   computed: {
@@ -108,17 +113,29 @@ export default {
       clickedButton: false,
       selectedHours: [],
       selectedWeapons: [],
-      time2: null,
+      time2: null,// new Date().toJSON().slice(0,10),
       event: {},
       weapons: [],
+      DateParam: this.time2,
+      slots: {},
+      options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ]
   
     }    
   },
   created() {
     this.getEventData();
     this.getWeaponsData();
+    //this.getSlotsData();
   },
   methods: {
+    changeHandler(){
+      this.getSlotsData()
+    },
     async getEventData() {
       // Use the eventService to call the getEventSingle() method
       EventService.getEventSingle(this.$route.params.id)
@@ -133,6 +150,16 @@ export default {
       .then(
         (weapons => {
           this.$set(this, "weapons", weapons)
+        }).bind(this)
+      )
+    },
+    async getSlotsData(){
+      axios.post("http://localhost:5000/api/Slot/list", {
+        DateTime: this.time2
+      })
+      .then(
+        (slots => {
+          this.$set(this, "slots", slots.data)
         }).bind(this)
       )
     }

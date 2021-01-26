@@ -13,4 +13,9 @@ export default {
     let res = await axios.post("http://localhost:5000/api/Weapon/list/", {Body: {}});
     return res.data;
   },
+  async getSlots(date) {
+    let res = await axios.post("http://localhost:5000/api/Slot/list", {Body: {date}});
+    return res.data;
+  },
+
 }
