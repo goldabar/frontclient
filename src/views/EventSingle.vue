@@ -1,3 +1,4 @@
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
 <template>
   <div class="event-single">
     <section class="hero is-primary">
@@ -20,17 +21,28 @@
               <br />
               <strong>Wybierz godzinę:</strong>
               <br />
-              <div>
-                <!--<b-form-checkbox-group
-              v-model="selected"
-              :options="options"
-              class="mb-3"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-checkbox-group>
-          <div class="mt-3">Selected: <strong>{{ selected }}</strong></div>-->
-              </div>
+              <div v-if="!selected">Brak wolnych godzin. Wybierz inną datę.</div>
+              <template>
+                
+                <div>
+                  <b-form-group
+                    v-slot="{ ariaDescribedby }"
+                  >
+                    <b-form-checkbox-group
+                      v-model="selected"
+                      :options="slots"
+                      :aria-describedby="ariaDescribedby"
+                      name="buttons-2"
+                      size="md"
+                      buttons
+                      button-variant="secondary"
+                      value-field="hour"
+                      text-field="hour"
+
+                    ></b-form-checkbox-group>
+                  </b-form-group>
+                </div>
+              </template>             
             </h2>
             <h2></h2>
           </div>
@@ -61,6 +73,9 @@
           <h2 class="subtitle">
             <br />
             <strong v-if="time2 !== null">Data rezerwacji:</strong> {{ time2 }}
+            <div v-if="selected.length">
+            <strong>Godzina:</strong>  {{selected}} 
+            </div>
             <div v-if="selectedWeapons.length">
               <br />
               <strong>Wybrane bronie:</strong>
@@ -81,9 +96,9 @@
 
             <!-- <strong>Godzina:</strong> {{ event.time }} -->
           </h2>
-          <div v-for="slot in slots" :key="slot.startDateTime">
+          <!--<div v-for="slot in slots" :key="slot.id">
             {{ slot }}
-          </div>
+          </div>-->
         </div>
       </div>
     </section>
@@ -100,7 +115,7 @@
         </div>
       </div>
     </section>
-<!--    TODO - test-->
+<!--    TODO - test
     <form @submit.prevent="onSubmit">
       <v-select
           :items="filteredWeapons"
@@ -118,7 +133,7 @@
       </v-select>
       <button>test</button>
     </form>
-
+-->
   </div>
 </template>
 
@@ -131,6 +146,7 @@ import "vue2-datepicker/index.css";
 import vSelect from "vue-select";
 import "vue-select/src/scss/vue-select.scss";
 import axios from "axios";
+import BootstrapVue from 'bootstrap-vue';
 //Vue.component('v-select', VueSelect.VueSelect);
 export default {
   computed: {
@@ -144,6 +160,8 @@ export default {
     DatePicker,
     vSelect,
     //Multiselect,
+    BootstrapVue,
+
   },
 
   name: "EventSingle",
@@ -152,11 +170,12 @@ export default {
       clickedButton: false,
       selectedHours: [],
       selectedWeapons: [],
-      time2: null, // new Date().toJSON().slice(0,10),
+      time2: new Date().toJSON().slice(0,10),
+      selected: [],
       event: {},
       weapons: [],
       DateParam: this.time2,
-      slots: {},
+      slots: [],
       options: [
         { item: "A", name: "Option A" },
         { item: "B", name: "Option B" },
@@ -168,7 +187,7 @@ export default {
   created() {
     this.getEventData();
     this.getWeaponsData();
-    //this.getSlotsData();
+    this.getSlotsData();
   },
   methods: {
     changeHandler() {
@@ -195,7 +214,7 @@ export default {
           DateTime: this.time2,
         })
         .then(
-          ((slots) => {
+          (slots => {
             this.$set(this, "slots", slots.data);
           }).bind(this)
         );
