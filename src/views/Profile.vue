@@ -18,8 +18,14 @@
               <div class="ma__user-id">ID: {{ userDetails.identityId }}</div>
               <div class="ma__user-res">
                 <ul class="ma__content">
-                  <li>
-
+                  Rezerwacje:
+                  <li v-for="reservation in reservation" :key="reservation.id">
+                    {{reservation.track.name}}
+                    Data rozpoczęcia: {{reservation.slots.map(function (obj){
+                              return obj.startDateTime})}}
+                    Bronie: {{reservation.weapons.map(function (obj){
+                              return obj.name})}}
+                    Status rezerwacji: {{reservation.reservationStatus}}
                   </li>
                 </ul>
               </div>
@@ -65,7 +71,8 @@
         role: '',
         userDetails: {},
         isWarningVisible: false,
-        reserved: [],
+        reservation: {},
+        slots: [],
       };
     },
     created() {
@@ -74,12 +81,13 @@
       this.userDetails = this.$store.getters.userData;
       this.getReservationData();
 
+
     },
     methods: {
-      async getReservationData() {
+      async getReservationData(){
         axios
             .post("http://localhost:5000/api/Reservation/list", {
-              userId: this.userDetails.identityId,
+              userData: this.userDetails.id,
             })
             .then(
                 (reservation => {
@@ -87,6 +95,7 @@
                 }).bind(this)
             );
       },
+
       showWarning() {
         this.isWarningVisible = true;
       },

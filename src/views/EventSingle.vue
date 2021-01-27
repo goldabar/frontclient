@@ -44,7 +44,7 @@
                       ></b-form-checkbox-group>
                     </b-form-group>
                   </div>
-                </template>
+                </template>p
               </h2>
               <h2></h2>
             </div>
@@ -196,7 +196,7 @@ export default {
       console.log("creat reservation");
 
 
-
+      // TODO - pass user ID to this whole component to send it to backend if needed
       const weaponsArray = this.selectedWeapons.map(function (obj){
         return obj.id;
       })
@@ -205,10 +205,9 @@ export default {
       const data = JSON.stringify({
         userId: this.userData.identityId,
         trackId: parseInt(this.$route.params.id),
-        weapons: weaponsArray,
+        weaponIds: weaponsArray,
         slotIds: this.selected,
 
-       // selectedWeapons: this.selectedWeapons
       });
       console.log(data);
       // TODO - this method will be fired after clicking form button
