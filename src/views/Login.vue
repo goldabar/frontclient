@@ -14,6 +14,7 @@
                 type="email"
                 class="form-control"
                 placeholder="email@example.com"
+                id="email"
               />
             </div>
             <div class="form-group">
@@ -24,6 +25,7 @@
                 type="password"
                 class="form-control"
                 placeholder="Hasło"
+                id="password"
               />
             </div>
             <br>
@@ -80,6 +82,7 @@ export default {
           this.$store.commit("authUser");
           this.$store.commit("storeUser", res.data);
           router.push("/");
+          console.log(this.$store.getters.userData);
         })
         .catch((err) => {
           console.log(err);

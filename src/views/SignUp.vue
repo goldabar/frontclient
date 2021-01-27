@@ -22,7 +22,7 @@
                 <input
                   required
                   class="form-control"
-                  type="lastnamee"
+                  type="lastname"
                   id="last-name"
                   v-model="lastName"
                   placeholder="Wpisz nazwisko"

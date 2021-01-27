@@ -4,82 +4,90 @@
     <section class="hero is-primary">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
-            {{ event.name }}
-          </h1>
-          <date-picker
-            placeholder="Wybierz datę"
-            valueType="format"
-            format="YYYY-MM-DD"
-            v-model="time2"
-            @change="changeHandler"
-            type="date"
-          ></date-picker>
+          <form @submit.prevent="onSubmit">
 
-          <div v-if="time2 !== null">
+            <h1 class="title">
+              {{ event.name }}
+            </h1>
+            <date-picker
+                placeholder="Wybierz datę"
+                valueType="format"
+                format="YYYY-MM-DD"
+                v-model="time2"
+                @change="changeHandler"
+                type="date"
+            ></date-picker>
+
+            <div v-if="time2 !== null">
+              <h2 class="subtitle">
+                <br />
+                <strong>Wybierz godzinę:</strong>
+                <br />
+                <div v-if="!selected">Brak wolnych godzin. Wybierz inną datę.</div>
+                <template>
+
+                  <div>
+                    <b-form-group
+                        v-slot="{ ariaDescribedby }"
+                    >
+                      <b-form-checkbox-group
+                          v-model="selected"
+                          :options="slots"
+                          :aria-describedby="ariaDescribedby"
+                          name="buttons-2"
+                          size="md"
+                          buttons
+                          button-variant="secondary"
+                          value-field="id"
+                          text-field="hour"
+
+                      ></b-form-checkbox-group>
+                    </b-form-group>
+                  </div>
+                </template>
+              </h2>
+              <h2></h2>
+            </div>
+
+            <v-select
+                :items="filteredWeapons"
+                label="name"
+                :selected="filteredWeapons.name"
+                :options="filteredWeapons"
+                multiple
+                v-model="selectedWeapons"
+                placeholder="Wybierz broń"
+            >
+              <template slot="option" slot-scope="option">
+                <img :src="option.pictureUrl" />
+                {{ option.name }} </template
+              >>
+            </v-select>
+
             <h2 class="subtitle">
               <br />
-              <strong>Wybierz godzinę:</strong>
-              <br />
-              <div v-if="!selected">Brak wolnych godzin. Wybierz inną datę.</div>
-              <template>
-                
-                <div>
-                  <b-form-group
-                    v-slot="{ ariaDescribedby }"
-                  >
-                    <b-form-checkbox-group
-                      v-model="selected"
-                      :options="slots"
-                      :aria-describedby="ariaDescribedby"
-                      name="buttons-2"
-                      size="md"
-                      buttons
-                      button-variant="secondary"
-                      value-field="hour"
-                      text-field="hour"
-
-                    ></b-form-checkbox-group>
-                  </b-form-group>
-                </div>
-              </template>             
-            </h2>
-            <h2></h2>
-          </div>
-          <v-select
-            :items="filteredWeapons"
-            label="name"
-            :selected="filteredWeapons.name"
-            :options="filteredWeapons"
-            multiple
-            v-model="selectedWeapons"
-            placeholder="Wybierz broń"
-          >
-            <template slot="option" slot-scope="option">
-              <img :src="option.pictureUrl" />
-              {{ option.name }} </template
-            >>
-          </v-select>
-
-          <h2 class="subtitle">
-            <br />
-            <strong v-if="time2 !== null">Data rezerwacji:</strong> {{ time2 }}
-            <div v-if="selected.length">
-            <strong>Godzina:</strong>  {{selected}} 
-            </div>
-            <div v-if="selectedWeapons.length">
-              <br />
-              <strong>Wybrane bronie:</strong>
-              <button>test</button>
-              <div
-                v-for="selectedWeapon in selectedWeapons"
-                :selectedWeapon="selectedWeapon.name"
-                :key="selectedWeapon.name"
-              >
-                {{ selectedWeapon.name }}
+              <strong v-if="time2 !== null">Data rezerwacji:</strong> {{ time2 }}
+              <div v-if="selected.length">
+                <strong>Godzina:</strong>  {{selected}}
               </div>
-            </div>
-          </h2>
+              <div v-if="selectedWeapons.length">
+                <br />
+                <strong>Wybrane bronie:</strong>
+                <div
+                    v-for="selectedWeapon in selectedWeapons"
+                    :selectedWeapon="selectedWeapon.name"
+                    :key="selectedWeapon.name"
+                >
+                  {{ selectedWeapon.name }}
+                </div>
+              </div>
+            </h2>
+
+            <button class="button is-dark">Rezerwuj</button>
+          </form>
+
+
+
           <!--<div v-for="slot in slots" :key="slot.id">
             {{ slot }}
           </div>-->
@@ -99,25 +107,7 @@
         </div>
       </div>
     </section>
-<!--    TODO - test
-    <form @submit.prevent="onSubmit">
-      <v-select
-          :items="filteredWeapons"
-          label="name"
-          :selected="filteredWeapons.name"
-          :options="filteredWeapons"
-          multiple
-          v-model="selectedWeapons"
-          placeholder="Wybierz broń"
-      >
-        <template slot="option" slot-scope="option">
-          <img :src="option.pictureUrl" />
-          {{ option.name }} </template
-        >>
-      </v-select>
-      <button>test</button>
-    </form>
--->
+
   </div>
 </template>
 
@@ -149,6 +139,7 @@ export default {
   name: "EventSingle",
   data() {
     return {
+      userDetails: {},
       clickedButton: false,
       selectedHours: [],
       selectedWeapons: [],
@@ -167,6 +158,7 @@ export default {
     };
   },
   created() {
+    this.userData = this.$store.getters.userData;
     this.getEventData();
     this.getWeaponsData();
     this.getSlotsData();
@@ -201,15 +193,26 @@ export default {
         );
     },
     onSubmit() {
-      console.log("send form request");
+      console.log("creat reservation");
 
-      // TODO - get variables form data()
-      // TODO - pass user ID to this whole component to send it to backend if needed
+
+
+      const weaponsArray = this.selectedWeapons.map(function (obj){
+        return obj.id;
+      })
+      console.log(weaponsArray)
+
       const data = JSON.stringify({
-        selectedWeapons: this.selectedWeapons
+        userId: this.userData.identityId,
+        trackId: parseInt(this.$route.params.id),
+        weapons: weaponsArray,
+        slotIds: this.selected,
+
+       // selectedWeapons: this.selectedWeapons
       });
+      console.log(data);
       // TODO - this method will be fired after clicking form button
-      axios.post('endpoint', data, {
+      axios.post("http://localhost:5000/api/Reservation/create", data, {
         headers: {
           'Content-Type': 'application/json'
         }

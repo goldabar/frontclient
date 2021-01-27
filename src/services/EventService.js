@@ -17,5 +17,9 @@ export default {
     let res = await axios.post("http://localhost:5000/api/Slot/list", {Body: {date}});
     return res.data;
   },
+  async getReservation(userId) {
+    let res = await axios.post("http://localhost:5000/api/Reservation/list", {Body: {userId}});
+    return res.data;
+  },
 
 }

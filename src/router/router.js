@@ -30,8 +30,14 @@ const routes = [
     {
         path: '/event/:id',
         name: 'eventSingle',
-        component: () => import('../views/EventSingle.vue'),
-      }
+        component: () => import('../views/EventSingle.vue'), beforeEnter(to, from, next) {
+            if (store.state.isAuthenticated){
+                next()
+            } else {
+                next('/signup')
+            }
+        }
+    }
     // {path: "*", component: PageNotFound},
 ]
 
