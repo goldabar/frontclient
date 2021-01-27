@@ -46,15 +46,6 @@
             </h2>
             <h2></h2>
           </div>
-          <!--<div>
-              <label class="typo__label">Wybierz broń:</label>
-              <multiselect v-model="value" placeholder="Wybierz broń" label="name" track-by="name" :options="event.weapons" :option-height="104" :custom-label="customLabel" :show-labels="false">
-                <template slot="singleLabel" slot-scope="props"><img class="option__image" :src="props.option.image"><span class="option__desc"><span class="option__name">{{ props.option.name }}</span></span></template>
-                <template slot="option" slot-scope="props"><img class="option__image" :src="props.option.image">
-                  <div class="option__desc"><span class="option__name">{{ props.option.name }}</span><span class="option__small">{{ props.option.desc }}</span></div>
-                </template>
-              </multiselect>
-          </div> -->
           <v-select
             :items="filteredWeapons"
             label="name"
@@ -87,14 +78,7 @@
               >
                 {{ selectedWeapon.name }}
               </div>
-
-              <!-- <div v-for="event in events" :event="event" :key="event.id" class="column is-one-quarter"> -->
-              <!--<div v-for="selectedWeapon in selectedWeapons" :selectedWeapon="selectedWeapon.name" :key="selectedWeapon.name">
-            {{selectedWeapon.name}}
-          </div>-->
             </div>
-
-            <!-- <strong>Godzina:</strong> {{ event.time }} -->
           </h2>
           <!--<div v-for="slot in slots" :key="slot.id">
             {{ slot }}
@@ -159,9 +143,7 @@ export default {
   components: {
     DatePicker,
     vSelect,
-    //Multiselect,
     BootstrapVue,
-
   },
 
   name: "EventSingle",
@@ -194,7 +176,6 @@ export default {
       this.getSlotsData();
     },
     async getEventData() {
-      // Use the eventService to call the getEventSingle() method
       EventService.getEventSingle(this.$route.params.id).then(
         ((event) => {
           this.$set(this, "event", event);
