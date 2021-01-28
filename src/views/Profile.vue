@@ -1,24 +1,31 @@
 <template>
   <div class="ma">
-    <div class="hero">
-      <h1 class="hero__header">Mój profil</h1>
-    </div>
-    <div class="ma__content">
-      <div class="ma__user-info"></div>
-      <div class="ma__cards">
-
-          <div class="ma__user-info">
-
-            <div class="ma__user-details">
-              <div class="ma__user-name">Imię: {{ userDetails.firstName }}</div>
-              <div class="ma__user-name">
-                Nazwisko: {{ userDetails.lastName }}
+    <div class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Mój profil</h1> 
+          <br>
+            <h2 class="subtitle"> 
+              <div>
+                <strong>Imię: </strong> {{ userDetails.firstName }}
               </div>
-              <div class="ma__user-name">Rola: {{ userDetails.identityRole }}</div>
-              <div class="ma__user-id">ID: {{ userDetails.identityId }}</div>
-              <div class="ma__user-res">
-                <ul class="ma__content">
-                  Rezerwacje:
+              <div>
+                <strong>Nazwisko: </strong>{{ userDetails.lastName }}
+              </div>
+              <div v-if = "userDetails.identityRole === 1" >
+                <strong>Rola: </strong>użytkownik
+              </div>
+              <div v-else>
+                <strong>Rola: </strong>admin
+              </div>
+              <div>
+                <strong>ID: </strong>{{ userDetails.identityId }}
+              </div>
+              <br>
+              <br>
+              <div>
+                
+                  <strong>Rezerwacje:</strong>
                   <li v-for="reservation in reservation" :key="reservation.id">
                     {{reservation.track.name}}
                     Data rozpoczęcia: {{reservation.slots.map(function (obj){
@@ -27,8 +34,9 @@
                               return obj.name})}}
                     Status rezerwacji: {{reservation.reservationStatus}}
                   </li>
-                </ul>
+                
               </div>
+            </h2>
             </div>
           </div>
           <div class="ma__settings">
@@ -55,9 +63,8 @@
               </button>
             </div>
           </div>
+        </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -79,15 +86,29 @@
       console.log("created");
       console.log(this.$store.getters.userData);
       this.userDetails = this.$store.getters.userData;
-      this.getReservationData();
+      //this.getReservationData();
 
 
     },
+    mounted(){
+      this.getReservationData();
+    },
     methods: {
+      /*addAsset(){
+        var self = this; //----the script I have to add
+        axios.post('/api/asset',self.formAddAsset)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+      },*/
       async getReservationData(){
+        var self = this.userDetails.id;
         axios
             .post("http://localhost:5000/api/Reservation/list", {
-              userData: this.userDetails.id,
+              userData: self,
             })
             .then(
                 (reservation => {
@@ -125,6 +146,6 @@
 
 </script>
 
-<style scoped>
+<style>
 
 </style>
