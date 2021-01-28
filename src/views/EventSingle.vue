@@ -5,10 +5,16 @@
       <div class="hero-body">
         <div class="container">
           <form @submit.prevent="onSubmit">
-
+            <div>
             <h1 class="title">
               {{ event.name }}
             </h1>
+            <h2 class="subtitle">
+              <strong>Kategoria: </strong>{{event.description}}
+            <br>
+            <br>
+              <strong>Wybierz datę: </strong>
+            </h2>
             <date-picker
                 placeholder="Wybierz datę"
                 valueType="format"
@@ -17,13 +23,14 @@
                 @change="changeHandler"
                 type="date"
             ></date-picker>
+            </div>
 
             <div v-if="time2 !== null">
               <h2 class="subtitle">
                 <br />
                 <strong>Wybierz godzinę:</strong>
+                <br>
                 <br />
-                <div v-if="!selected">Brak wolnych godzin. Wybierz inną datę.</div>
                 <template>
 
                   <div>
@@ -31,25 +38,28 @@
                         v-slot="{ ariaDescribedby }"
                     >
                       <b-form-checkbox-group
+                          buttons
+                          name="buttons-2"
                           v-model="selected"
                           :options="slots"
-                          :aria-describedby="ariaDescribedby"
-                          name="buttons-2"
-                          size="md"
-                          buttons
-                          button-variant="secondary"
+                          :aria-describedby="ariaDescribedby"                       
+                          size="md"                     
+                          button-variant="light"
                           value-field="id"
                           text-field="hour"
 
                       ></b-form-checkbox-group>
                     </b-form-group>
                   </div>
-                </template>p
+                </template>
               </h2>
               <h2></h2>
             </div>
-
+            <h2 class="subtitle">
+              <strong>Wybierz broń: </strong>
+            </h2>
             <v-select
+                class="style-chooser"
                 :items="filteredWeapons"
                 label="name"
                 :selected="filteredWeapons.name"
@@ -64,7 +74,7 @@
               >>
             </v-select>
 
-            <h2 class="subtitle">
+            <!--<h2 class="subtitle">
               <br />
               <strong v-if="time2 !== null">Data rezerwacji:</strong> {{ time2 }}
               <div v-if="selected.length">
@@ -81,9 +91,10 @@
                   {{ selectedWeapon.name }}
                 </div>
               </div>
-            </h2>
-
-            <button class="button is-dark">Rezerwuj</button>
+            </h2>-->
+            <br>
+            <br>
+            <button class="button is-light">Rezerwuj</button>
           </form>
 
 
@@ -94,20 +105,14 @@
         </div>
       </div>
     </section>
-    <section class="event-content">
+   <!-- <section class="event-content">
       <div class="container">
-        <!-- <p class="is-size-4 description">{{ event.description }}</p> -->
-        <!--<p class="is-size-5"><strong>Lokacja:</strong> {{ event.location }}</p>-->
-        <p class="is-size-5">
-          <strong>Kategoria:</strong> {{ event.description }}
-        </p>
-
         <div class="column is-one-third">
           <img :src="event.featuredImage" />
         </div>
       </div>
-    </section>
-
+    </section> -->
+    
   </div>
 </template>
 
@@ -184,7 +189,8 @@ export default {
     async getSlotsData() {
       axios
         .post("http://localhost:5000/api/Slot/list", {
-          DateTime: this.time2,
+            DateTime: this.time2,
+            TrackId: this.event.id,      
         })
         .then(
           (slots => {
@@ -223,3 +229,28 @@ export default {
   },
 };
 </script>
+<style>
+  .style-chooser .vs__search::placeholder,
+  .style-chooser .vs__dropdown-toggle,
+  .style-chooser .vs__dropdown-menu {
+    background: #eff0f5;
+    border: none;
+    color: #394066;
+    text-transform: lowercase;
+    font-variant: normal;
+  }
+
+  .style-chooser .vs__clear,
+  .style-chooser .vs__open-indicator {
+    fill: #394066;
+  }
+  
+  .hero {
+  
+  background-image: url("https://i.imgur.com/rBqgQbY.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 600px;
+}
+</style>

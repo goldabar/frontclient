@@ -77,6 +77,10 @@ export default {
           }
         })
         .then((res) => {
+          localStorage.setItem('token', res.data.accessToken);
+          localStorage.setItem('refresh', res.data.refreshToken);
+          localStorage.setItem('identityId', res.data.identityId);
+          localStorage.setItem('role', res.data.identityRole);
           console.log("login");
           console.log(res.data);
           this.$store.commit("authUser");
