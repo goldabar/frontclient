@@ -6,6 +6,8 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
+
+
 export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
@@ -24,7 +26,8 @@ export default new Vuex.Store({
         clearAuthData(state) {
             state.isAuthenticated = false;
             state.user = null;
-        }
+        },
+
     },
     actions: {
         signup(context, authData){

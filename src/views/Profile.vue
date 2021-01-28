@@ -105,10 +105,9 @@
         });
       },*/
       async getReservationData(){
-        var self = this.userDetails.id;
         axios
             .post("http://localhost:5000/api/Reservation/list", {
-              userData: self,
+              userId: this.userDetails.identityId,
             })
             .then(
                 (reservation => {
@@ -126,7 +125,7 @@
       onDeleteUser() {
         console.log("delete user");
         axios
-            .delete("/account/deleteUser" + `?id=${this.userDetails.id}`, {
+            .delete("http://localhost:5000/api/User/" + `${this.userDetails.identityId}`, {
               headers: {
                 "Content-Type": "application/json",
               },

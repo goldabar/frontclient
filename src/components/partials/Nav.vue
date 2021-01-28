@@ -8,8 +8,8 @@
   <div id="navbar" class="navbar-menu">
     <div class="navbar-start">
       <router-link to="/about" class="navbar-item">Kontakt</router-link>
-      <router-link to="/my-profile" class="navbar-item"><a v-if="isAuthenticated"><strong>Mój profil</strong></a></router-link>
-      <router-link to="/admin" class="navbar-item"><a v-if="isAuthenticated"><strong>Admin</strong></a></router-link>
+      <router-link to="/my-profile" class="navbar-item"><a v-if="isAuthenticated && this.userDetails.identityRole === 1"><strong>Mój profil</strong></a></router-link>
+      <router-link to="/admin" class="navbar-item"><a v-if="isAuthenticated"><strong>Admin Panel</strong></a></router-link>
 
     </div>
 <div class="navbar-end">
