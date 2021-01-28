@@ -126,6 +126,7 @@ import vSelect from "vue-select";
 import "vue-select/src/scss/vue-select.scss";
 import axios from "axios";
 import BootstrapVue from 'bootstrap-vue';
+import router from "@/router/router";
 //Vue.component('v-select', VueSelect.VueSelect);
 export default {
   computed: {
@@ -148,7 +149,7 @@ export default {
       clickedButton: false,
       selectedHours: [],
       selectedWeapons: [],
-      time2: new Date().toJSON().slice(0,10),
+      time2: null, //new Date().toJSON().slice(0,10),
       selected: [],
       event: {},
       weapons: [],
@@ -163,10 +164,11 @@ export default {
     };
   },
   created() {
+    this.trackid = this.event.id;
     this.userData = this.$store.getters.userData;
     this.getEventData();
     this.getWeaponsData();
-    this.getSlotsData();
+    //this.getSlotsData();    
   },
   methods: {
     changeHandler() {
@@ -224,6 +226,7 @@ export default {
       }).then(res => {
         console.log("response");
         console.log(res);
+        router.push("/my-profile");
       })
     }
   },

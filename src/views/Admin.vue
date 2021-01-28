@@ -1,8 +1,7 @@
 <template>
   <div class="ap">
-    <div class="hero">
       <h1 class="title">Admin panel</h1>
-    </div>
+
     <h2 class="subtitle">
       <div>
         <br>
